@@ -1,0 +1,19 @@
+body {
+    background-color: white;
+    color: black;
+    margin: 1em auto 4em;
+    max-width: 50em;
+}
+
+code {
+    background-color: #f5fcba;
+    font-size: 1.1em;
+    padding: 0.2em;
+    white-space: pre;
+}
+
+.codeblock {
+    background-color: #f5fcba;
+    padding:1em 2em;
+    overflow-x: auto;
+}

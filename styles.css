@@ -1,0 +1,67 @@
+#sectors, #duties, #editor, #crew, #error {
+    margin: 1em;
+    padding: 0.5em;
+}
+
+#sectors, #duties, #editor, #crew {
+    border: 1px solid green;
+}
+
+#error {
+    border: 2px solid red;
+}
+
+#sectors, #duties, #crew {
+    overflow-x: scroll;
+}
+
+
+#freeform_container {
+    width: 95%;
+    margin: 1em auto;
+}
+
+#freeform {
+    width:100%;
+    white-space: pre;
+}
+
+#freeform.wait {
+    background-color: #E8FFE8;
+}
+
+#buttons {
+    text-align:right;
+    padding: 0.5em 1em;
+    border-top: 1px solid gray;
+}
+
+li pre {
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+#helplink {
+    text-align: right;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    font-size: 1.3em;
+    margin:0.5em;
+    border-bottom: 1px solid gray;
+}
+
+body.wait * {
+    cursor: progress;
+}
+
+#uploadme {
+    float: left;
+}
