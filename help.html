@@ -10,7 +10,34 @@
     <script src="script.js" type="text/javascript"></script>
   </head>
   <body>
+    <h1>Overview</h1>
+
+    <p>This is a very simple web application that may be useful to
+    those managing their electronic logbooks using general purpose
+    spreadsheets, databases etc. rather than proprietary commercial
+    logbook programs. It takes a simple input format and produces
+    comma separated value (CSV) text that can easily be copied and
+    pasted wherever desired.</p>
+
+    <p>It can be used manually, but is probably most useful when used
+    in conjunction with a program that extracts data from a rostering
+    system. A suitable extraction program will soon be made available
+    to easyJet pilots.</p>
+
     <h1>10 minute tutorial</h1>
+
+    <p>This tutorial demonstrates how data can be manually input and
+    converted. While this is substantially easier than entering the
+    data manually into a spreadsheet or database form, manual input
+    remains fairly tedious. A more likely workflow is that data is
+    extracted from a rostering system and saved into a file in the
+    input format which is then uploaded to be tweaked. The button on
+    the left is provided to allow upload of a suitable file.</p>
+
+    <p>For those with access to a suitable rostering system extraction
+    program, the tutorial is a familiarisation with the input format
+    so that you know how to tweak it. For those without it will
+    represent actual workflow.</p>
 
     <h2>Add a date</h2>
 
@@ -158,46 +185,25 @@
     <p>Note that the third column now matches the second column for sectors 2 to 4.</p>
 
     <h2>Not the Captain?</h2>
-    <p>Above the first sector add <code>{CP:Bloggs Jo}</code> so that the text area looks like:</p>
-
-    <div class="codeblock">
-      <code>2016-11-16</code><br/>
-      <code>G-EZUS:A320</code><br/>
-      <code>{CP:Bloggs Jo}</code><br/>
-      <code>BRS/GLA 1730/1830</code><br/>
-      <code>/ 1900/2000 n</code><br/>
-      <code>G-EZOK:A320</code><br/>
-      <code>/EDI 2030/2130 n</code><br/>
-      <code>/ 2200/2300 n</code><br/>
-      <code>1630/2230</code>
-    </div>
-
-    <p>Running the parser now changes the sectors box to:</p>
-
-    <div class="codeblock">
-      <code>2016-11-16 17:30:00,  60,   0, "BRS", "GLA", "G-EZUS", "A320", "Bloggs", "p1s"</code><br/>
-      <code>2016-11-16 19:00:00,  60,  60, "GLA", "BRS", "G-EZUS", "A320", "Bloggs", "p1s"</code><br/>
-      <code>2016-11-16 20:30:00,  60,  60, "BRS", "EDI", "G-EZOK", "A320", "Bloggs", "p1s"</code><br/>
-      <code>2016-11-16 22:00:00,  60,  60, "EDI", "BRS", "G-EZOK", "A320", "Bloggs", "p1s"</code>
-    </div>
-
-    <p>The parser assumes maximum responsibility, so it puts you down as p1s for all the
-    sectors. Assume that you “did the middle two”, and add <code>p2</code> flags to sectors 1 and 4,
-    such that the text area looks like this:</p>
+    <p>If using a rostering system extraction tool, this will be the
+    major thing that requires tweaking, since rostering systems do not
+    record the per sector role. Above the first sector add
+    <code>{CP:Bloggs Jo}</code> and add "p1s" and "p2" flags to the
+    sectors so that the text area looks like:</p>
 
     <div class="codeblock">
       <code>2016-11-16</code><br/>
       <code>G-EZUS:A320</code><br/>
       <code>{CP:Bloggs Jo}</code><br/>
       <code>BRS/GLA 1730/1830 p2</code><br/>
-      <code>/ 1900/2000 n</code><br/>
+      <code>/ 1900/2000 n p1s</code><br/>
       <code>G-EZOK:A320</code><br/>
-      <code>/EDI 2030/2130 n</code><br/>
+      <code>/EDI 2030/2130 n p1s</code><br/>
       <code>/ 2200/2300 n p2</code><br/>
       <code>1630/2230</code>
     </div>
 
-    <p>Running the parser now gives you:</p>
+    <p>Running the parser now changes the sectors box to:</p>
 
     <div class="codeblock">
       <code>2016-11-16 17:30:00,  60,   0, "BRS", "GLA", "G-EZUS", "A320", "Bloggs", "p2"</code><br/>
@@ -206,17 +212,18 @@
       <code>2016-11-16 22:00:00,  60,  60, "EDI", "BRS", "G-EZOK", "A320", "Bloggs", "p2"</code>
     </div>
 
-    <p>The flag <code>put</code> may be used instead of <code>p2</code> if appropriate.</p>
-    <p><code>{CP:Self}</code> may be used to switch back to yourself as Captain. If you are flying
-    with a Captain who has the surname “Self”, you can use a <code>p1s</code> flag to limit the
-    confusion.</p>
-
     <h2>Other crew members</h2>
 
-    <p>When you declared the Captain in the previous section, a <strong>Crew</strong> section will
-    have opened up. This allows you to record the rest of the crew on your flight, should you desire
-    to do so. Change <code>{CP:Bloggs}</code> to
-    <code>{CP:Bloggs Jo, PU:Smith Jane, FA:Brown Mike, FA:Taylor Liz}</code>, so that the text area looks like:</p>
+    <p>When you declared the Captain in the previous section, a
+    <strong>Crew</strong> section will have opened up. This allows you
+    to record the rest of the crew on your flight, should you desire
+    to do so. In practice it is unlikely that you will want to do this
+    unless you have access to a rostering system extraction
+    tool. Change <code>{CP:Bloggs}</code> to
+
+    <code>{CP:Bloggs Jo, PU:Smith Jane, FA:Brown Mike, FA:Taylor Liz}</code>
+
+    , so that the text area looks like:</p>
 
     <div class="codeblock">
       <code>2016-11-16</code><br/>
@@ -238,64 +245,6 @@
       <code>2016-11-16 22:00:00, "CP:Bloggs Jo", "PU:Smith Jane", "FA:Brown Mike", "FA:Taylor Liz"</code>
     </div>
 
-    <h2>Still too much effort</h2>
-
-    <p>I agree.</p>
-
-    <p>Right click <a href="test-roster-2.htm">this link</a> and choose to download the file. This
-    is my AIMS detailed roster for 5 days at the start of June 2016. You can now click the button
-    below the text area on the left marked <strong>Choose file</strong>, <strong>Browse</strong> or
-    similar (browser dependent) and select this file for upload.</p>
-
-    <p>If all goes well, the text area will look like this:</p>
-    <div class="codeblock">
-      <code>2016-06-05</code><br/>
-      <code>1155/2255</code><br/>
-      <code>{ FO:Alton Thomas, PU:Vaughan Lana, FA:Evans Emma, FA:Hardy Michelle, FA:Mesterhazi Beata }</code><br/>
-      <code>BRS/BSL 1253/1431</code><br/>
-      <code>BSL/BRS 1505/1646</code><br/>
-      <code>BRS/BCN 1728/1928</code><br/>
-      <code>BCN/BRS 2015/2225 n</code><br/>
-      <br/>
-      <code>2016-06-06</code><br/>
-      <code>1745/0022</code><br/>
-      <code>{ FO:Carter Yannick, PU:Smith Emma, FA:Avent Joy, FA:Lewis Anna, FA:Norman Lauren }</code><br/>
-      <code>BRS/PMI 1850/2100</code><br/>
-      <code>PMI/BRS 2139/2352 n</code><br/>
-      <br/>
-      <code>2016-06-07</code><br/>
-      <code>1620/2250</code><br/>
-      <code>{ FO:Fisher Stuart, PU:Harkin Gemma Lr, FA:Collard Joseph, FA:Eyles Hannah, FA:Rivilla Rodriguez R }</code><br/>
-      <code>BRS/PSA 1725/1926</code><br/>
-      <code>PSA/BRS 2001/2220</code><br/>
-      <br/>
-      <code>2016-06-08</code><br/>
-      <code>1205/2222</code><br/>
-      <code>{ FO:Alton Thomas, PU:Jones Laura, FA:Adams Charlotte, FA:Eyles Hannah, FA:Sleman Andrew }</code><br/>
-      <code>BRS/LIS 1303/1524</code><br/>
-      <code>LIS/BRS 1603/1827</code><br/>
-      <code>BRS/BFS 1916/2026</code><br/>
-      <code>BFS/BRS 2051/2152 n</code><br/>
-      <br/>
-      <code>2016-06-09</code><br/>
-      <code>1410/1854</code><br/>
-      <code>{ FO:Fisher Stuart, PU:Fido Julie, FA:Balas Lucile, FA:Greenham Abigail Ja, FA:White Samantha }</code><br/>
-      <code>BRS/CDG 1510/1613</code><br/>
-      <code>CDG/BRS 1704/1824</code>
-    </div>
-
-    <p>This means that you can get most of your logbook data entered simply by downloading a
-    detailed roster from AIMS and feeding it to this function. The AIMS roster does not have
-    everything; you will still need to add aircraft registration and type and, if you were
-    <code>p2</code> or <code>put</code>.</p>
-
-    <p>The AIMS detailed roster format is subject to change without notice and to scrape this data
-    requires a large number of assumptions. This function is thus likely to be fairly brittle,
-    particularly as the format has very recently changed. If it doesn't work, you can try
-    downloading shorter sections of the roster, avoiding anything that looks unusual. If you isolate
-    a problem, please send me a copy at <a
-    href="mailto:hursts.org+badroster@gmail.com">hursts.org+badroster@gmail.com</a> and I will
-    attempt to change the code to make it work.</p>
 
     <h2>The spreadsheet</h2>
 
@@ -308,7 +257,7 @@
 
     <h2>Future-proofing</h2>
 
-    <p>The absolutely critical question with respect to logbook data is how to avoid losing
+    <p>The critical question with respect to logbook data is how to avoid losing
     it. Firstly, it needs to be in a file format that is very widely used in order to minimise the
     danger of loss through software obsolescence. Secondly, it needs to be created with software
     that is very well tested, i.e. it has a very large installed user base. This minimises the
@@ -331,13 +280,5 @@
     purpose of this service is to reduce some of that tedium. It is intentionally not critical that
     the service continues to exist; there will always be the fallback of manual data entry straight
     into the spreadsheet.</p>
-
-    <p>What <em>are</em> the chances of the service suddenly ceasing to exist? The code that does
-    the heavy lifting is actually part of my own logbook process, and I will therefore continue to
-    maintain it while I am at easyJet. The service is hosted on Amazon Lambda, meaning it costs me
-    less than a penny a month to run. I have also released the code under the open source GPLv3
-    licence; anyone can use it or improve it as they see fit. Essentially, there is no incentive for
-    me to stop providing this service, and if I do, it is fairly trivial for someone else to provide
-    a replacement.</p>
   </body>
 </html>
