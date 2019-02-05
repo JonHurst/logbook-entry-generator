@@ -16,59 +16,11 @@ function processFreeform() {
 }
 
 
-function convertRoster(roster) {
-    $("#freeform").val("Please wait...").addClass("wait");
-    $.ajax({
-        type: "POST",
-        url: "https://j5yyxiaxub.execute-api.us-east-1.amazonaws.com/prod/roster",
-        contentType: "application/json",
-        crossDomain: true,
-        datatype: 'json',
-        data: JSON.stringify({'action': 'freeform', 'data': roster}),
-        timeout: 15000,
-        success: insertFreeform,
-        error: roster_parse_error});
-}
-
-
-function insertFreeform(data) {
-    if(data.errorType) {
-        $("#sectors").addClass("hidden");
-        $("#duties").addClass("hidden");
-        $("#crew").addClass("hidden");
-        var error_para = $("<p/>").text(data.errorMessage);
-        $("#error").removeClass("hidden")
-            .empty()
-            .append($("<h1>AIMS parsing error</h1>"))
-            .append(error_para);
-        $("#freeform").val("").removeClass("wait");
-    }
-    else {
-        $("#error").addClass("hidden").empty();
-        data = JSON.parse(data);
-        $("#freeform").val(data.result).removeClass("wait");
-    }
-}
-
-
-function roster_parse_error(jqxhr, status, string) {
-    $("#sectors").addClass("hidden").empty();
-    $("#duties").addClass("hidden").empty();
-    $("#crew").addClass("hidden").empty();
-    $("#freeform").val("").removeClass("wait");
-    var error_msg = $("<dl/>")
-            .append($("<dt/>").text("Status: " + status))
-            .append($("<dd/>").text("Error: " + string));
-    $("#error").empty().removeClass("hidden").append(
-        $("<p>A server error occurred during roster parse.</p>").
-            append(error_msg));
-}
-
-
 function fileChosen(evt) {
     $("#error").addClass("hidden").empty();
     evt.stopPropagation();
     evt.preventDefault();
+    $("#freeform").val("Please wait...").addClass("wait");
     var fileref = this.files[0];
     var reader = new FileReader();
     reader.onload = fileRead;
@@ -77,7 +29,11 @@ function fileChosen(evt) {
 
 
 function fileRead(evt) {
-    convertRoster(evt.target.result);
+    $("#sectors").addClass("hidden");
+    $("#duties").addClass("hidden");
+    $("#crew").addClass("hidden");
+    $("#error").addClass("hidden").empty();
+    $("#freeform").val(evt.target.result).removeClass("wait");
 }
 
 
