@@ -20,6 +20,11 @@ textarea {
     margin: auto;
 }
 
+button.clipboard {
+    float: right;
+    margin-bottom: 1em;
+}
+
 #freeform_container {
     width: 95%;
     margin: 1em auto;

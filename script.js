@@ -144,7 +144,17 @@ function crewFragment(sectors) {
 
 
 function textarea(str) {
-    return "<textarea readonly='readonly' rows='10'>" + str + "</textarea>";
+    return "<button class='clipboard' type='button' " +
+        "onclick='copy_to_clipboard(this)'>" +
+        "Copy to clipboard</button>" +
+        "<textarea readonly='readonly' rows='10'>" +
+        str + "</textarea>";
+}
+
+
+function copy_to_clipboard(o) {
+    var text = o.nextElementSibling.textContent;
+    navigator.clipboard.writeText(text);
 }
 
 
@@ -177,6 +187,9 @@ function displayData(data) {
             .append($("<h1>Crew</h1>"))
             .append($(textarea(crew_frag)))
             .removeClass("hidden");
+    }
+    if(!navigator.clipboard) {
+        $("button.clipboard").addClass("hidden");
     }
 }
 
