@@ -51,15 +51,20 @@ function sectorsFragment(sectors) {
     var text = "";
     for(var c = 0; c < sectors.length; c++) {
         var s = sectors[c];
+        var comment = "";
+        if(s.Comment) {
+            comment = s.Comment;
+        }
         text += s.Start + ", " +
-                spacepadNumber(s.Duration, 3) + ", " +
-                spacepadNumber(s.NightDuration, 3) + ", \"" +
-                s.From + "\", \""
-                + s.To + "\", \"" +
-                s.Registration + "\", \"" +
-                s.Type + "\", \"" +
-                s.Captain + "\", \"" +
-                s.Role + "\"&#10;";
+            spacepadNumber(s.Duration, 3) + ", " +
+            spacepadNumber(s.NightDuration, 3) + ", \"" +
+            s.From + "\", \""
+            + s.To + "\", \"" +
+            s.Registration + "\", \"" +
+            s.Type + "\", \"" +
+            s.Captain + "\", \"" +
+            s.Role + "\", \"" +
+            comment + "\"&#10;";
     }
     return text;
 }
@@ -70,8 +75,13 @@ function dutiesFragment(duties) {
     var text = "";
     for(var c = 0; c < duties.length; c++) {
         var d = duties[c];
+        var comment = "";
+        if(d.Comment) {
+            comment = d.Comment;
+        }
         text += d.Start + ", " +
-            spacepadNumber(d.Duration, 3) + "&#10;";
+            spacepadNumber(d.Duration, 3) + ", \"" +
+            comment + "\"&#10;";
     }
     return text;
 }
